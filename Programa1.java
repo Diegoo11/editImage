@@ -4,17 +4,21 @@ import episunsa.*;
 class Programa1 {
   public static void main(String[] args) {
     SimpleImage img = new SimpleImage("lab.png");
+    SimpleImage bg = new SimpleImage("background.jpg");
     Scanner sc = new Scanner(System.in);
 
-    for(int i = 0; i < img.getWidth(); i += 1){
-      for(int j = 0; j < img.getHeight(); j += 1) {
-        Pixel px = img.getPixel(i, j);
-        px.setRed(0);
-        px.setBlue(0);
-        px.setGreen(255);
+    for(Pixel px: img){
+      int green = px.getGreen();
+      if (green == 255) {
+        int x = px.getX();
+        int y = px.getY();
+        Pixel pxBg = bg.getPixel(x, y);
+
+        px.setBlue(pxBg.getBlue());
+        px.setGreen(pxBg.getGreen());
+        px.setRed(pxBg.getRed());
       }
     }
-
     img.print();
   }
 }
